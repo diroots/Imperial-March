@@ -2,7 +2,7 @@
 
 Imperial March displayed on Pimoroni's Unicorn Phat
 
-[Blinking Deathstar raspberry pi case](./deathstar_rpi_case_unicorn_phat.jpg)
+![Blinking Deathstar raspberry pi case](./deathstar_rpi_case_unicorn_phat.jpg)
 
 
 [Unicorn pHAT](https://shop.pimoroni.com/products/unicorn-phat)
