@@ -1,54 +1,134 @@
-tone_values = {'LA3': 220, 'F3': 174, 'C4': 261, 'E4': 329, 'F4': 349, 'Ab3': 207, 'LA4': 440, 'Ab4': 415,
-'G4': 392, 'Gb4': 370, 'Bb3': 233, 'Eb4': 311, 'D4': 293, 'Db4': 277, 'B3': 247}
+#!/usr/bin/env python
 
-from machine import Pin, PWM
-from time import sleep
+import time
 
-pin_piezo = Pin(13, Pin.OUT)
+from random import randint
 
-def beep(tone, time):
+
+
+import unicornhat as uh
+
+
+
+tone_values = {
+'c': {'r': randint(10, 255),'g': randint(10, 255),'b': randint(10, 255)}, 
+'d': {'r': randint(10, 255),'g': randint(10, 255),'b': randint(10, 255)}, 
+'e': {'r': randint(10, 255),'g': randint(10, 255),'b': randint(10, 255)}, 
+'f': {'r': randint(10, 255),'g': randint(10, 255),'b': randint(10, 255)}, 
+'g': {'r': randint(10, 255),'g': randint(10, 255),'b': randint(10, 255)}, 
+'gS': {'r': randint(10, 255),'g': randint(10, 255),'b': randint(10, 255)}, 
+'a': {'r': randint(10, 255),'g': randint(10, 255),'b': randint(10, 255)}, 
+'aS': {'r': randint(10, 255),'g': randint(10, 255),'b': randint(10, 255)}, 
+'b': {'r': randint(10, 255),'g': randint(10, 255),'b': randint(10, 255)}, 
+'cH': {'r': randint(10, 255),'g': randint(10, 255),'b': randint(10, 255)}, 
+'cH': {'r': randint(10, 255),'g': randint(10, 255),'b': randint(10, 255)}, 
+'cSH': {'r': randint(10, 255),'g': randint(10, 255),'b': randint(10, 255)}, 
+'dH': {'r': randint(10, 255),'g': randint(10, 255),'b': randint(10, 255)}, 
+'dSH': {'r': randint(10, 255),'g': randint(10, 255),'b': randint(10, 255)}, 
+'eH': {'r': randint(10, 255),'g': randint(10, 255),'b': randint(10, 255)},
+'fH': {'r': randint(10, 255),'g': randint(10, 255),'b': randint(10, 255)},
+'fSH': {'r': randint(10, 255),'g': randint(10, 255),'b': randint(10, 255)},
+'gH': {'r': randint(10, 255),'g': randint(10, 255),'b': randint(10, 255)},
+'gSH': {'r': randint(10, 255),'g': randint(10, 255),'b': randint(10, 255)},
+'aH': {'r': randint(10, 255),'g': randint(10, 255),'b': randint(10, 255)}
+}
+
+uh.set_layout(uh.PHAT)
+uh.rotation(0)
+uh.brightness(0.8)
+width,height=uh.get_shape()
+
+
+def beep(tone, timer):
     for key in tone_values:
         if key == tone:
             value = tone_values[key]
-    pwm = PWM(pin_piezo, freq=value, duty = 512)
-    sleep(time)
-    pwm.deinit()
-    sleep(1/20)
+            for x in range(8):
+                for y in range(4):
+                   uh.set_pixel(x, y, value['r'], value['g'], value['b']) 
+    uh.show()   
+    time.sleep(timer)
+    uh.clear()
+    for x in range(8):
+       for y in range(4):
+          uh.set_pixel(x, y, 0, 0, 0) 
+    uh.show()   
+    time.sleep(0.05)
 
-beep('LA3', 1/2)
-beep('LA3', 1/2)
-beep('LA3', 1/2)
-beep('F3', 1/3)
-beep('C4', 1/6)
-beep('LA3', 1/2)
-beep('F3', 1/3)
-beep('C4', 1/6)
-beep('LA3', 1/2)
-sleep(1/2)
-beep('E4', 1/2)
-beep('E4', 1/2)
-beep('E4', 1/2)
-beep('F4', 1/3)
-beep('C4', 1/6)
-beep('Ab3', 1/2)
-beep('F3', 1/3)
-beep('C4', 1/6)
-beep('LA3', 1/2)
-sleep(1/2)
-beep('LA4', 1/2)
-beep('LA3', 1/3)
-beep('LA3', 1/6)
-beep('LA4', 1/2)
-beep('Ab4', 1/3)
-beep('G4', 1/6)
-beep('Gb4', 1/10)
-beep('E4', 1/10)
-beep('F4', 1/10)
-sleep(1/2)
-beep('Bb3', 1/6)
-beep('Eb4', 1/2)
-beep('D4', 1/3)
-beep('Db4', 1/6)
-beep('C4', 1/10)
-beep('B3', 1/10)
-beep('C4', 1/10)
+#Light it up, bro!
+beep('a', 0.5)
+beep('a', 0.5)
+beep('a', 0.5)
+beep('f', 0.35)
+beep('cH', 0.15)
+beep('a', 0.5)
+beep('f', 0.35)
+beep('cH', 0.15)
+beep('a', 1)
+#first bit
+beep('eH', 0.5)
+beep('eH', 0.5)
+beep('eH', 0.5)
+beep('fH', 0.35)
+beep('cH', 0.15)
+beep('gS', 0.5)
+beep('f', 0.35)
+beep('cH', 0.15)
+beep('a', 1)
+#second bit...
+beep('aH', 0.5)
+beep('a', 0.35)
+beep('a', 0.15)
+beep('aH', 0.5)
+beep('gSH', 0.25)
+beep('gH', 0.25)
+beep('fSH', 0.125)
+beep('fH', 0.125)
+beep('fSH', 0.25)
+time.sleep(0.25)
+beep('aS', 0.25)
+beep('dSH', 0.5)
+beep('dH', 0.25)
+beep('cSH', 0.25)
+#start of the interesting bit
+beep('cH', 0.125)
+beep('b', 0.125)
+beep('cH', 0.25)
+time.sleep(0.25)
+beep('f', 0.125)
+beep('gS', 0.5)
+beep('f', 0.375)
+beep('a', 0.125)
+beep('cH', 0.5)
+beep('a', 0.375)
+beep('cH', 0.125)
+beep('eH', 1)
+#more interesting stuff (this doesn't quite get it right somehow)
+beep('aH', 0.5)
+beep('a', 0.35)
+beep('a', 0.15)
+beep('aH', 0.5)
+beep('gSH', 0.25)
+beep('gH', 0.25)
+beep('fSH', 0.125)
+beep('fH', 0.125)
+beep('fSH', 0.25)
+time.sleep(0.25)
+beep('aS', 0.25)
+beep('dSH', 0.5)
+beep('dH', 0.25)
+beep('cSH', 0.25)
+#repeat... repeat
+beep('cH', 0.125)
+beep('b', 0.125)
+beep('cH', 0.25)
+time.sleep(0.25)
+beep('f', 0.25)
+beep('gS', 0.5)
+beep('f', 0.375)
+beep('cH', 0.125)
+beep('a', 0.5)
+beep('f', 0.375)
+beep('c', 0.125)
+beep('a', 1)  
+#and we're done \o/    
